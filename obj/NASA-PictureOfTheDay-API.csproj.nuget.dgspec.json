@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Anssi\\Desktop\\Nasa Tehtävä\\Nasa Tehtävä.csproj": {}
+    "D:\\GitHub\\NASA-PictureOfTheDay-API\\NASA-PictureOfTheDay-API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Anssi\\Desktop\\Nasa Tehtävä\\Nasa Tehtävä.csproj": {
+    "D:\\GitHub\\NASA-PictureOfTheDay-API\\NASA-PictureOfTheDay-API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Anssi\\Desktop\\Nasa Tehtävä\\Nasa Tehtävä.csproj",
-        "projectName": "Nasa Tehtävä",
-        "projectPath": "C:\\Users\\Anssi\\Desktop\\Nasa Tehtävä\\Nasa Tehtävä.csproj",
+        "projectUniqueName": "D:\\GitHub\\NASA-PictureOfTheDay-API\\NASA-PictureOfTheDay-API.csproj",
+        "projectName": "NASA-PictureOfTheDay-API",
+        "projectPath": "D:\\GitHub\\NASA-PictureOfTheDay-API\\NASA-PictureOfTheDay-API.csproj",
         "packagesPath": "C:\\Users\\Anssi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Anssi\\Desktop\\Nasa Tehtävä\\obj\\",
+        "outputPath": "D:\\GitHub\\NASA-PictureOfTheDay-API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

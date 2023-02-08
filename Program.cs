@@ -1,131 +1,320 @@
-﻿namespace NasaAPI
-{
-    using System.IO;
+﻿    using System.IO;
     using System.Net;
     using System.Text.RegularExpressions;
     public class Program
     {
         static void Main(string[] args)
         {
-            RandomDay randomDay = new RandomDay();
+            // Referenssit:
+            Random rnd = new Random();
             DateTime today = DateTime.Now;
             DateTime yesterday = DateTime.Today.AddDays(-1);
-            string randomYearMonthDay;
-            // (@"\b(?:https?://|www\.)\S+\b", RegexOptions.IgnoreCase);
-            //                      (@"(http|ftp|https)://([\w+?\.\w+])+([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]*)?");
-            // Regex urlRx = new Regex(@"(http|ftp|https)://([\w+?\.\w+])+([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]*)?", RegexOptions.IgnoreCase);
-            //Regex urlRx = new Regex("(http|ftp|https)://([\w+?\.\w+])+([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]*)?");
-            Regex urlRx = new Regex(@"(http|ftp|https)://([\w+?\.\w+])+([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]*)?");
-            List<string> list = new List<string>();
+            int randomYear;
+            int randomMonth;
+            int randomDayy;
+            string pattern = @"(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|jpeg|gif|png)";
+            string[] imageUrls = new string[2];
+            int CurrentYear = Convert.ToInt32(today.Year);
 
+            // Ohjelma alkaa ja se on käynnissä kunnes käyttäjä antaa arvon "0"
             while(true)
             {
-            // https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=YYYY-MM-DD
             Console.WriteLine("Jos haluat tämän päivän kuvan. Vastaa 1");
-            Console.WriteLine("Jos haluat kuvan eiliseltä päivältä. Vastaa 2"); // YYYY-MM-DD
+            Console.WriteLine("Jos haluat kuvan eiliseltä päivältä. Vastaa 2");
             Console.WriteLine("Jos haluat satunnaisen kuvan väliltä 16.6.1995 - " + today.ToString("dd.MM.yyyy") + ". Vastaa 3"); 
             Console.WriteLine("Jos haluat sulkea ohjelman. Vastaa 0");
             string? vastaus = Console.ReadLine();
 
-            // (http|ftp|https)://([\w+?\.\w+])+([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]*)?
-
+            // Jos vastaa 1, annetaan käyttäjälle tämän päivän kuva(t)
             if (vastaus == "1")
             {
-                // string todayString = today.ToString("yyyy-MM-dd");
-                //Console.WriteLine(today.ToString("yyyy-MM-dd"));
-
+                // Lataa nettisivulta tekstit tiedostoon nasa<Tämäpäivä yyyy-MM-dd>.txt
                 using(WebClient client = new WebClient())
                 {
                 string s = client.DownloadString("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date="+ today.ToString("yyyy-MM-dd"));
 
-                StreamWriter writer = new StreamWriter("nasa" + today.ToString("yyyy-MM-dd") + ".txt");
+                // StreamWriter kirjoittaa tekstit tiedostoon Nasa<Tämäpäivä yyyy-MM-dd>.txt
+                StreamWriter writer = new StreamWriter("Nasa" + today.ToString("yyyy-MM-dd") + ".txt");
                 writer.Write(s);
                 writer.Close();
                 }
 
-                var matches = urlRx.Matches("nasa" + today.ToString("yyyy-MM-dd") + ".txt");
+                // Lukee tiedoston nasa<Tämäpäivä yyyy-MM-dd>.txt stringiin text
+                string text = File.ReadAllText("Nasa" + today.ToString("yyyy-MM-dd") + ".txt");
 
-                foreach (var match in matches)
+                // Tsekkaa kaikki matchit jotka löytää tekstistä, pattern regex on määritelty referensseissä
+                MatchCollection matches = Regex.Matches(text, pattern, RegexOptions.IgnoreCase);
+
+                // Jos matches on enemmän kuin 0 niin lisää array imageUrlsiin niin monta eri arvoa kuin matches löysi matcheja
+                if (matches.Count > 0)
                 {
-                    Console.WriteLine(match);
+                    for (int i = 0; i < matches.Count; i++)
+                    {
+                        imageUrls[i] = matches[i].Value;
+                    }
                 }
-                
-               /*  //string txt = "this is my url http://www.google.com and visit this website and this is my url http://www.yahoo.com";
-                MatchCollection matches = urlRx.Matches("nasa" + today.ToString("yyyy-MM-dd") + ".txt");
-                foreach (Match match in matches)
+                else
+                {   // try catch pitää tehdä!
+                    Console.WriteLine("No images found!");
+                }
+
+                // Printtaa kaikki imageUrls arrayn arvot. Koodia käytetty testaukseen
+                // imageUrls.ToList().ForEach(i => Console.WriteLine(i.ToString()));
+
+                // Kysyy käyttäjältä haluaako se ladata HD- vai normaalilaatuisen kuvan tietokoneelle.
+                while (true)
                 {
-                    list.Add(match.Value);
-                } */
+                    Console.WriteLine("Jos haluat HD-laatuisen kuvan. Vastaa 1");
+                    Console.WriteLine("Jos haluat normaali-laatuisen kuvan. Vastaa 2");
+                    string? mikaKuva = Console.ReadLine();
 
-               /*  foreach (Match item in Regex.Matches("nasa" + today.ToString("yyyy-MM-dd") + ".txt", @"(http|ftp|https)://([\w+?\.\w+])+([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]*)?"))
-                {
-                    Console.WriteLine(item.Value);
-                } */
+                    // Ladataan HD-laatuinen
+                    if (mikaKuva == "1")
+                    {
+                    using (WebClient client = new WebClient())
+                    {
+                    // Tekee uuden kansion käyttäjän Anssi työpöydälle. Nasa\Vuosi\Kuukausi
+                    Directory.CreateDirectory(@"C:\Users\Anssi\Desktop\Nasa\" + today.ToString("yyyy") + "/" + today.ToString("MM"));
 
-                /* foreach (var link in list)
-                {
-                    Console.WriteLine(link);
-                } */
+                    // Määritetään ladattavan tiedoston nimi ja muoto.
+                    string fileName = today.ToString("yyyy-MM-dd") + "HD" + ".jpg";
 
-              /*   string[] arr = Regex.Matches("nasa" + today.ToString("yyyy-MM-dd") + ".txt", @"(http|ftp|https)://([\w+?\.\w+])+([a-zA-Z0-9\~\!\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]*)?")
-                .Cast<Match>()
-                .Select(m => m.Value)
-                .ToArray();
+                    // Määritetään kansion sijainti minne tiedosto ladataan
+                    string savePath = Path.Combine(@"C:\Users\Anssi\Desktop\Nasa\" + today.ToString("yyyy") + "/" + today.ToString("MM"), fileName);
 
-                for (int i = 0; i < arr.Length; i++)
-                {
-                    System.Console.WriteLine(arr[i]);
-                } */
+                    // Ladataan kuva imageUrls Arrayn indeksistä 0, koska APIssa HD-laatu on aina ensinmäisenä index on 0
+                    client.DownloadFile(imageUrls[0], savePath);
+                    Console.WriteLine("Kuva " + fileName + " ladattu onnistuneesti!");
+                    }   
+                        // Katkaisee while loopin
+                        break;
+                    }
 
+                    // Ladataan normaalilaatuisena
+                    if (mikaKuva == "2")
+                    {
+                    using (WebClient client = new WebClient())
+                    {
+                    // Tekee uuden kansion käyttäjän Anssi työpöydälle. Nasa\Vuosi\Kuukausi
+                    Directory.CreateDirectory(@"C:\Users\Anssi\Desktop\Nasa\" + today.ToString("yyyy") + "/" + today.ToString("MM"));
 
+                    // Määritetään ladattavan tiedoston nimi ja muoto.
+                    string fileName = today.ToString("yyyy-MM-dd") + ".jpg";
+
+                    // Määritetään kansion sijainti minne tiedosto ladataan
+                    string savePath = Path.Combine(@"C:\Users\Anssi\Desktop\Nasa\" + today.ToString("yyyy") + "/" + today.ToString("MM"), fileName);
+
+                    // Ladataan kuva imageUrls Arrayn indeksistä 1, koska APIssa normaali-laatu on aina toisena index on 1
+                    client.DownloadFile(imageUrls[1], savePath);
+                    Console.WriteLine("Kuva " + fileName + " ladattu onnistuneesti!");
+                    }
+                        // Katkaisee while loopin
+                        break;
+                    }
+                }
+
+                // Puhdistaa imageUrls arrayn, jolloin jos ohjelman pyöriessä ottaa toiselta päivältä kuvan niin ohjelma toimii.
+                Array.Clear(imageUrls, 0, imageUrls.Length);
             }   
             
-
+            // Jos vastaa 2, annetaan käyttäjälle tämän eilisen päivän kuva(t)
             if (vastaus == "2")
             {
-                // Console.WriteLine(yesterday.ToString("yyyy-MM-dd"));
-
+                
+                // Lataa nettisivulta tekstit tiedostoon nasa<Eilinenpäivä yyyy-MM-dd>.txt
                 using(WebClient client = new WebClient())
                 {
                 string s = client.DownloadString("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date="+ yesterday.ToString("yyyy-MM-dd"));
 
-                StreamWriter writer = new StreamWriter("nasa" + yesterday.ToString("yyyy-MM-dd") + ".txt");
+                // StreamWriter kirjoittaa tekstit tiedostoon Nasa<Eilinenpäivä yyyy-MM-dd>.txt
+                StreamWriter writer = new StreamWriter("Nasa" + yesterday.ToString("yyyy-MM-dd") + ".txt");
                 writer.Write(s);
                 writer.Close();
-
                 }
-            }
 
-            // 16.6.1995 - (today)
-            // https://www.c-sharpcorner.com/blogs/date-and-time-format-in-c-sharp-programming1
+                // Lukee tiedoston nasa<Eilinenpäivä yyyy-MM-dd>.txt stringiin text
+                string text = File.ReadAllText("Nasa" + yesterday.ToString("yyyy-MM-dd") + ".txt");
+
+                // Tsekkaa kaikki matchit jotka löytää tekstistä, pattern regex on määritelty referensseissä
+                MatchCollection matches = Regex.Matches(text, pattern, RegexOptions.IgnoreCase);
+
+                // Jos matches on enemmän kuin 0 niin lisää array imageUrlsiin niin monta eri arvoa kuin matches löysi matcheja
+                if (matches.Count > 0)
+                {
+                    for (int i = 0; i < matches.Count; i++)
+                    {
+                        imageUrls[i] = matches[i].Value;
+                    }
+                }
+                else
+                {   // try catch pitää tehdä!
+                    Console.WriteLine("No images found!");
+                }
+
+                // Printtaa kaikki imageUrls arrayn arvot. Koodia käytetty testaukseen
+                // imageUrls.ToList().ForEach(i => Console.WriteLine(i.ToString()));
+
+                while (true)
+                {
+                    Console.WriteLine("Jos haluat HD-laatuisen kuvan. Vastaa 1");
+                    Console.WriteLine("Jos haluat normaali-laatuisen kuvan. Vastaa 2");
+                    string? mikaKuva = Console.ReadLine();
+
+                    // Ladataan HD-laatuinen
+                    if (mikaKuva == "1")
+                    {
+                    using (WebClient client = new WebClient())
+                    {
+                    // Tekee uuden kansion käyttäjän Anssi työpöydälle. Nasa\Vuosi\Kuukausi
+                    Directory.CreateDirectory(@"C:\Users\Anssi\Desktop\Nasa\" + yesterday.ToString("yyyy") + "/" + yesterday.ToString("MM"));
+
+                    // Määritetään ladattavan tiedoston nimi ja muoto.
+                    string fileName = yesterday.ToString("yyyy-MM-dd") + "HD" + ".jpg";
+
+                    // Määritetään kansion sijainti minne tiedosto ladataan
+                    string savePath = Path.Combine(@"C:\Users\Anssi\Desktop\Nasa\" + yesterday.ToString("yyyy") + "/" + yesterday.ToString("MM"), fileName);
+
+                    // Ladataan kuva imageUrls Arrayn indeksistä 0, koska APIssa HD-laatu on aina ensinmäisenä index on 0
+                    client.DownloadFile(imageUrls[0], savePath);
+                    Console.WriteLine("Kuva " + fileName + " ladattu onnistuneesti!");
+                    }
+                        // Katkaisee while loopin
+                        break;
+                    }
+
+                    // Ladataan normaalilaatuisena
+                    if (mikaKuva == "2")
+                    {
+
+                    using (WebClient client = new WebClient())
+                    {
+                    // Tekee uuden kansion käyttäjän Anssi työpöydälle. Nasa\Vuosi\Kuukausi
+                    Directory.CreateDirectory(@"C:\Users\Anssi\Desktop\Nasa\" + yesterday.ToString("yyyy") + "/" + yesterday.ToString("MM"));
+
+                    // Määritetään ladattavan tiedoston nimi ja muoto.
+                    string fileName = yesterday.ToString("yyyy-MM-dd") + ".jpg";
+
+                    // Määritetään kansion sijainti minne tiedosto ladataan
+                    string savePath = Path.Combine(@"C:\Users\Anssi\Desktop\Nasa\" + yesterday.ToString("yyyy") + "/" + yesterday.ToString("MM"), fileName);
+
+                    // Ladataan kuva imageUrls Arrayn indeksistä 1, koska APIssa normaali-laatu on aina toisena index on 1
+                    client.DownloadFile(imageUrls[1], savePath);
+                    Console.WriteLine("Kuva " + fileName + " ladattu onnistuneesti!");
+                    }
+                        // Katkaisee while loopin
+                        break;
+                    }
+                }
+
+                // Puhdistaa imageUrls arrayn, jolloin jos ohjelman pyöriessä ottaa toiselta päivältä kuvan niin ohjelma toimii.
+                Array.Clear(imageUrls, 0, imageUrls.Length);
+            } 
+            
+            // Jos vastaa 3, annetaan käyttäjälle satunnaisen päivän kuva(t)
+            // Lisää try catch jos random antaa 01.01.1995 - 15.06-1995. Koska kuvia on vasta ajalta 16.6.1995 eteenpäin.
             if (vastaus == "3")
             {
-                randomYearMonthDay = randomDay.Next().ToString("yyyy-MM-dd");
-                // Console.WriteLine(randomDay.Next().ToString("yyyy-MM-dd"));
-                // Console.WriteLine(randomYearMonthDay);
+                // Määritetään satunnainen vuosi, kuukausi ja päivä.
+                randomYear = rnd.Next(1995, today.Year);
+                randomMonth = rnd.Next(1,13);
+                randomDayy = rnd.Next(1,32);
 
+                // Lataa nettisivulta tekstit tiedostoon nasa<Tämäpäivä yyyy-MM-dd>.txt
                 using(WebClient client = new WebClient())
                 {
-                string s = client.DownloadString("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date="+ randomYearMonthDay);
+                string s = client.DownloadString("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date="+ randomYear.ToString() + "-" + randomMonth.ToString() + "-" + randomDayy.ToString());
 
-                StreamWriter writer = new StreamWriter("nasa" + randomYearMonthDay + ".txt");
+                // StreamWriter kirjoittaa tekstit tiedostoon Nasa<Eilinenpäivä yyyy-MM-dd>.txt
+                StreamWriter writer = new StreamWriter("Nasa" + randomYear.ToString() + "-" + randomMonth.ToString() + "-" + randomDayy.ToString() + ".txt");
                 writer.Write(s);
                 writer.Close();
-
                 }
 
-            }
+                // Lukee tiedoston nasa<Satunnainenpäivä yyyy-MM-dd>.txt stringiin text
+                string text = File.ReadAllText("Nasa" + randomYear.ToString() + "-" + randomMonth.ToString() + "-" + randomDayy.ToString() + ".txt");
 
+                // Tsekkaa kaikki matchit jotka löytää tekstistä, pattern regex on määritelty referensseissä
+                MatchCollection matches = Regex.Matches(text, pattern, RegexOptions.IgnoreCase);
+
+                // Jos matches on enemmän kuin 0 niin lisää array imageUrlsiin niin monta eri arvoa kuin matches löysi matcheja
+                if (matches.Count > 0)
+                {
+                    for (int i = 0; i < matches.Count; i++)
+                    {
+                        imageUrls[i] = matches[i].Value;
+                    }
+                }
+                else
+                {
+                    // try catch pitää tehdä!
+                    Console.WriteLine("No images found!");
+                }
+
+                // Printtaa kaikki imageUrls arrayn arvot. Koodia käytetty testaukseen
+                // imageUrls.ToList().ForEach(i => Console.WriteLine(i.ToString()));
+
+                while (true)
+                {
+                    Console.WriteLine("Jos haluat HD-laatuisen kuvan. Vastaa 1");
+                    Console.WriteLine("Jos haluat normaali-laatuisen kuvan. Vastaa 2");
+                    string? mikaKuva = Console.ReadLine();
+
+                    // Ladataan HD-laatuinen
+                    if (mikaKuva == "1")
+                    {
+                    using (WebClient client = new WebClient())
+                    {
+                    // Tekee uuden kansion käyttäjän Anssi työpöydälle. Nasa\Vuosi\Kuukausi
+                    Directory.CreateDirectory(@"C:\Users\Anssi\Desktop\Nasa\" + randomYear.ToString() + "/" + randomMonth.ToString());
+
+                    // Määritetään ladattavan tiedoston nimi ja muoto.
+                    string fileName = randomYear.ToString() + "-" + randomMonth.ToString() + "-" + randomDayy.ToString() + "HD" + ".jpg";
+
+                    // Määritetään kansion sijainti minne tiedosto ladataan
+                    string savePath = Path.Combine(@"C:\Users\Anssi\Desktop\Nasa\" + randomYear.ToString() + "/" + randomMonth.ToString(), fileName);
+
+                    // Ladataan kuva imageUrls Arrayn indeksistä 0, koska APIssa HD-laatu on aina ensinmäisenä index on 0
+                    client.DownloadFile(imageUrls[0], savePath);
+                    Console.WriteLine("Kuva " + fileName + " ladattu onnistuneesti!");
+                    }
+                        // Katkaistaan while loop
+                        break;
+                    }
+
+                    // Ladataan normaalilaatuisena
+                    if (mikaKuva == "2")
+                    {
+
+                    using (WebClient client = new WebClient())
+                    {
+                    // Tekee uuden kansion käyttäjän Anssi työpöydälle. Nasa\Vuosi\Kuukausi
+                    Directory.CreateDirectory(@"C:\Users\Anssi\Desktop\Nasa\" + randomYear.ToString() + "/" + randomMonth.ToString(""));
+
+                    // Määritetään ladattavan tiedoston nimi ja muoto.
+                    string fileName = randomYear.ToString() + "-" + randomMonth.ToString() + "-" + randomDayy.ToString() + ".jpg";
+
+                    // Määritetään kansion sijainti minne tiedosto ladataan
+                    string savePath = Path.Combine(@"C:\Users\Anssi\Desktop\Nasa\" + randomYear.ToString() + "/" + randomMonth.ToString(), fileName);
+
+                    // Ladataan kuva imageUrls Arrayn indeksistä 1, koska APIssa normaali-laatu on aina toisena index on 1
+                    client.DownloadFile(imageUrls[1], savePath);
+                    Console.WriteLine("Kuva " + fileName + " ladattu onnistuneesti!");
+                    }
+                        // Katkaistaan while loop
+                        break;
+                    }
+                }
+
+                // Puhdistaa imageUrls arrayn, jolloin jos ohjelman pyöriessä ottaa toiselta päivältä kuvan niin ohjelma toimii.
+                Array.Clear(imageUrls, 0, imageUrls.Length);
+            } 
+
+            // Jos käyttäjä antaa arvon "0" katkaistaan ohjelma
             if (vastaus == "0")
             {
                 break;
             }
 
             }
-
-
-
         }
-
     }
-}

@@ -7,5 +7,5 @@ build_property.InvariantGlobalization =
 build_property.PlatformNeutralAssembly = 
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
-build_property.RootNamespace = Nasa_Tehtävä
-build_property.ProjectDir = C:\Users\Anssi\Desktop\Nasa Tehtävä\
+build_property.RootNamespace = NASA_PictureOfTheDay_API
+build_property.ProjectDir = D:\GitHub\NASA-PictureOfTheDay-API\

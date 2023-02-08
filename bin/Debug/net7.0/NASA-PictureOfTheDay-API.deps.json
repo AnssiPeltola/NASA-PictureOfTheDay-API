@@ -6,15 +6,15 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v7.0": {
-      "Nasa Tehtävä/1.0.0": {
+      "NASA-PictureOfTheDay-API/1.0.0": {
         "runtime": {
-          "Nasa Tehtävä.dll": {}
+          "NASA-PictureOfTheDay-API.dll": {}
         }
       }
     }
   },
   "libraries": {
-    "Nasa Tehtävä/1.0.0": {
+    "NASA-PictureOfTheDay-API/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

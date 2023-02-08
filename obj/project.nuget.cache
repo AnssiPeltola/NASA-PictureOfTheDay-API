@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OkPqIiMzXATfmm6kaMVplhw8IUZSwppiKrPX86gEcK5Dy4G6RHve5UA2475aec4ejASLpMSUMpyZHU39MTftFQ==",
+  "dgSpecHash": "zvFBtpK7fnkmEIrj0HWnPj/tmHDb1KTkXYQ/a7PzCBt7ZIEGirQ//vjLV4aSaB8t00QaKQ7V4n5a8S8O2s26nQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Anssi\\Desktop\\Nasa Tehtävä\\Nasa Tehtävä.csproj",
+  "projectFilePath": "D:\\GitHub\\NASA-PictureOfTheDay-API\\NASA-PictureOfTheDay-API.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
