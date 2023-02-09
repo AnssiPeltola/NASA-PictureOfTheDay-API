@@ -15,6 +15,7 @@
             string pattern = @"(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|jpeg|gif|png)";
             string[] imageUrls = new string[2];
             int CurrentYear = Convert.ToInt32(today.Year);
+            string projectPath = Directory.GetCurrentDirectory();
 
             // Ohjelma alkaa ja se on käynnissä kunnes käyttäjä antaa arvon "0"
             while(true)
@@ -34,13 +35,13 @@
                 string s = client.DownloadString("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date="+ today.ToString("yyyy-MM-dd"));
 
                 // StreamWriter kirjoittaa tekstit tiedostoon Nasa<Tämäpäivä yyyy-MM-dd>.txt
-                StreamWriter writer = new StreamWriter("Nasa" + today.ToString("yyyy-MM-dd") + ".txt");
+                StreamWriter writer = new StreamWriter(projectPath + "/" + "txts" + "/" + "Nasa" + today.ToString("yyyy-MM-dd") + ".txt");
                 writer.Write(s);
                 writer.Close();
                 }
 
                 // Lukee tiedoston nasa<Tämäpäivä yyyy-MM-dd>.txt stringiin text
-                string text = File.ReadAllText("Nasa" + today.ToString("yyyy-MM-dd") + ".txt");
+                string text = File.ReadAllText(projectPath + "/" + "txts" + "/" + "Nasa" + today.ToString("yyyy-MM-dd") + ".txt");
 
                 // Tsekkaa kaikki matchit jotka löytää tekstistä, pattern regex on määritelty referensseissä
                 MatchCollection matches = Regex.Matches(text, pattern, RegexOptions.IgnoreCase);
@@ -74,13 +75,13 @@
                     using (WebClient client = new WebClient())
                     {
                     // Tekee uuden kansion käyttäjän Anssi työpöydälle. Nasa\Vuosi\Kuukausi
-                    Directory.CreateDirectory(@"C:\Users\Anssi\Desktop\Nasa\" + today.ToString("yyyy") + "/" + today.ToString("MM"));
+                    Directory.CreateDirectory(projectPath + "/" + "Kuvat" + "/" + today.ToString("yyyy") + "/" + today.ToString("MM"));
 
                     // Määritetään ladattavan tiedoston nimi ja muoto.
                     string fileName = today.ToString("yyyy-MM-dd") + "HD" + ".jpg";
 
                     // Määritetään kansion sijainti minne tiedosto ladataan
-                    string savePath = Path.Combine(@"C:\Users\Anssi\Desktop\Nasa\" + today.ToString("yyyy") + "/" + today.ToString("MM"), fileName);
+                    string savePath = Path.Combine(projectPath + "/" + "Kuvat" + "/" + today.ToString("yyyy") + "/" + today.ToString("MM"), fileName);
 
                     // Ladataan kuva imageUrls Arrayn indeksistä 0, koska APIssa HD-laatu on aina ensinmäisenä index on 0
                     client.DownloadFile(imageUrls[0], savePath);
@@ -96,13 +97,13 @@
                     using (WebClient client = new WebClient())
                     {
                     // Tekee uuden kansion käyttäjän Anssi työpöydälle. Nasa\Vuosi\Kuukausi
-                    Directory.CreateDirectory(@"C:\Users\Anssi\Desktop\Nasa\" + today.ToString("yyyy") + "/" + today.ToString("MM"));
+                    Directory.CreateDirectory(projectPath + "/" + "Kuvat" + "/" + today.ToString("yyyy") + "/" + today.ToString("MM"));
 
                     // Määritetään ladattavan tiedoston nimi ja muoto.
                     string fileName = today.ToString("yyyy-MM-dd") + ".jpg";
 
                     // Määritetään kansion sijainti minne tiedosto ladataan
-                    string savePath = Path.Combine(@"C:\Users\Anssi\Desktop\Nasa\" + today.ToString("yyyy") + "/" + today.ToString("MM"), fileName);
+                    string savePath = Path.Combine(projectPath + "/" + "Kuvat" + "/" + today.ToString("yyyy") + "/" + today.ToString("MM"), fileName);
 
                     // Ladataan kuva imageUrls Arrayn indeksistä 1, koska APIssa normaali-laatu on aina toisena index on 1
                     client.DownloadFile(imageUrls[1], savePath);
@@ -127,13 +128,13 @@
                 string s = client.DownloadString("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date="+ yesterday.ToString("yyyy-MM-dd"));
 
                 // StreamWriter kirjoittaa tekstit tiedostoon Nasa<Eilinenpäivä yyyy-MM-dd>.txt
-                StreamWriter writer = new StreamWriter("Nasa" + yesterday.ToString("yyyy-MM-dd") + ".txt");
+                StreamWriter writer = new StreamWriter(projectPath + "/" + "txts" + "/" + "Nasa" + yesterday.ToString("yyyy-MM-dd") + ".txt");
                 writer.Write(s);
                 writer.Close();
                 }
 
                 // Lukee tiedoston nasa<Eilinenpäivä yyyy-MM-dd>.txt stringiin text
-                string text = File.ReadAllText("Nasa" + yesterday.ToString("yyyy-MM-dd") + ".txt");
+                string text = File.ReadAllText(projectPath + "/" + "txts" + "/" + "Nasa" + yesterday.ToString("yyyy-MM-dd") + ".txt");
 
                 // Tsekkaa kaikki matchit jotka löytää tekstistä, pattern regex on määritelty referensseissä
                 MatchCollection matches = Regex.Matches(text, pattern, RegexOptions.IgnoreCase);
@@ -166,13 +167,13 @@
                     using (WebClient client = new WebClient())
                     {
                     // Tekee uuden kansion käyttäjän Anssi työpöydälle. Nasa\Vuosi\Kuukausi
-                    Directory.CreateDirectory(@"C:\Users\Anssi\Desktop\Nasa\" + yesterday.ToString("yyyy") + "/" + yesterday.ToString("MM"));
+                    Directory.CreateDirectory(projectPath + "/" + "Kuvat" + "/" + yesterday.ToString("yyyy") + "/" + yesterday.ToString("MM"));
 
                     // Määritetään ladattavan tiedoston nimi ja muoto.
                     string fileName = yesterday.ToString("yyyy-MM-dd") + "HD" + ".jpg";
 
                     // Määritetään kansion sijainti minne tiedosto ladataan
-                    string savePath = Path.Combine(@"C:\Users\Anssi\Desktop\Nasa\" + yesterday.ToString("yyyy") + "/" + yesterday.ToString("MM"), fileName);
+                    string savePath = Path.Combine(projectPath + "/" + "Kuvat" + "/" + yesterday.ToString("yyyy") + "/" + yesterday.ToString("MM"), fileName);
 
                     // Ladataan kuva imageUrls Arrayn indeksistä 0, koska APIssa HD-laatu on aina ensinmäisenä index on 0
                     client.DownloadFile(imageUrls[0], savePath);
@@ -189,13 +190,13 @@
                     using (WebClient client = new WebClient())
                     {
                     // Tekee uuden kansion käyttäjän Anssi työpöydälle. Nasa\Vuosi\Kuukausi
-                    Directory.CreateDirectory(@"C:\Users\Anssi\Desktop\Nasa\" + yesterday.ToString("yyyy") + "/" + yesterday.ToString("MM"));
+                    Directory.CreateDirectory(projectPath + "/" + "Kuvat" + "/" + yesterday.ToString("yyyy") + "/" + yesterday.ToString("MM"));
 
                     // Määritetään ladattavan tiedoston nimi ja muoto.
                     string fileName = yesterday.ToString("yyyy-MM-dd") + ".jpg";
 
                     // Määritetään kansion sijainti minne tiedosto ladataan
-                    string savePath = Path.Combine(@"C:\Users\Anssi\Desktop\Nasa\" + yesterday.ToString("yyyy") + "/" + yesterday.ToString("MM"), fileName);
+                    string savePath = Path.Combine(projectPath + "/" + "Kuvat" + "/" + yesterday.ToString("yyyy") + "/" + yesterday.ToString("MM"), fileName);
 
                     // Ladataan kuva imageUrls Arrayn indeksistä 1, koska APIssa normaali-laatu on aina toisena index on 1
                     client.DownloadFile(imageUrls[1], savePath);
@@ -225,13 +226,13 @@
                 string s = client.DownloadString("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date="+ randomYear.ToString() + "-" + randomMonth.ToString() + "-" + randomDayy.ToString());
 
                 // StreamWriter kirjoittaa tekstit tiedostoon Nasa<Eilinenpäivä yyyy-MM-dd>.txt
-                StreamWriter writer = new StreamWriter("Nasa" + randomYear.ToString() + "-" + randomMonth.ToString() + "-" + randomDayy.ToString() + ".txt");
+                StreamWriter writer = new StreamWriter(projectPath + "/" + "txts" + "/" + "Nasa" + randomYear.ToString() + "-" + randomMonth.ToString() + "-" + randomDayy.ToString() + ".txt");
                 writer.Write(s);
                 writer.Close();
                 }
 
                 // Lukee tiedoston nasa<Satunnainenpäivä yyyy-MM-dd>.txt stringiin text
-                string text = File.ReadAllText("Nasa" + randomYear.ToString() + "-" + randomMonth.ToString() + "-" + randomDayy.ToString() + ".txt");
+                string text = File.ReadAllText(projectPath + "/" + "txts" + "/" + "Nasa" + randomYear.ToString() + "-" + randomMonth.ToString() + "-" + randomDayy.ToString() + ".txt");
 
                 // Tsekkaa kaikki matchit jotka löytää tekstistä, pattern regex on määritelty referensseissä
                 MatchCollection matches = Regex.Matches(text, pattern, RegexOptions.IgnoreCase);
@@ -265,13 +266,13 @@
                     using (WebClient client = new WebClient())
                     {
                     // Tekee uuden kansion käyttäjän Anssi työpöydälle. Nasa\Vuosi\Kuukausi
-                    Directory.CreateDirectory(@"C:\Users\Anssi\Desktop\Nasa\" + randomYear.ToString() + "/" + randomMonth.ToString());
+                    Directory.CreateDirectory(projectPath + "/" + "Kuvat" + "/" + randomYear.ToString() + "/" + randomMonth.ToString());
 
                     // Määritetään ladattavan tiedoston nimi ja muoto.
                     string fileName = randomYear.ToString() + "-" + randomMonth.ToString() + "-" + randomDayy.ToString() + "HD" + ".jpg";
 
                     // Määritetään kansion sijainti minne tiedosto ladataan
-                    string savePath = Path.Combine(@"C:\Users\Anssi\Desktop\Nasa\" + randomYear.ToString() + "/" + randomMonth.ToString(), fileName);
+                    string savePath = Path.Combine(projectPath + "/" + "Kuvat" + "/" + randomYear.ToString() + "/" + randomMonth.ToString(), fileName);
 
                     // Ladataan kuva imageUrls Arrayn indeksistä 0, koska APIssa HD-laatu on aina ensinmäisenä index on 0
                     client.DownloadFile(imageUrls[0], savePath);
@@ -288,13 +289,13 @@
                     using (WebClient client = new WebClient())
                     {
                     // Tekee uuden kansion käyttäjän Anssi työpöydälle. Nasa\Vuosi\Kuukausi
-                    Directory.CreateDirectory(@"C:\Users\Anssi\Desktop\Nasa\" + randomYear.ToString() + "/" + randomMonth.ToString(""));
+                    Directory.CreateDirectory(projectPath + "/" + "Kuvat" + "/" + randomYear.ToString() + "/" + randomMonth.ToString(""));
 
                     // Määritetään ladattavan tiedoston nimi ja muoto.
                     string fileName = randomYear.ToString() + "-" + randomMonth.ToString() + "-" + randomDayy.ToString() + ".jpg";
 
                     // Määritetään kansion sijainti minne tiedosto ladataan
-                    string savePath = Path.Combine(@"C:\Users\Anssi\Desktop\Nasa\" + randomYear.ToString() + "/" + randomMonth.ToString(), fileName);
+                    string savePath = Path.Combine(projectPath + "/" + "Kuvat" + "/" + randomYear.ToString() + "/" + randomMonth.ToString(), fileName);
 
                     // Ladataan kuva imageUrls Arrayn indeksistä 1, koska APIssa normaali-laatu on aina toisena index on 1
                     client.DownloadFile(imageUrls[1], savePath);

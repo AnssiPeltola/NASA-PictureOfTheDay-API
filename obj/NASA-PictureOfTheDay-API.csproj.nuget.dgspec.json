@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GitHub\\NASA-PictureOfTheDay-API\\NASA-PictureOfTheDay-API.csproj": {}
+    "C:\\Users\\Anssi\\Desktop\\NASA-PictureOfTheDay-API\\NASA-PictureOfTheDay-API.csproj": {}
   },
   "projects": {
-    "D:\\GitHub\\NASA-PictureOfTheDay-API\\NASA-PictureOfTheDay-API.csproj": {
+    "C:\\Users\\Anssi\\Desktop\\NASA-PictureOfTheDay-API\\NASA-PictureOfTheDay-API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GitHub\\NASA-PictureOfTheDay-API\\NASA-PictureOfTheDay-API.csproj",
+        "projectUniqueName": "C:\\Users\\Anssi\\Desktop\\NASA-PictureOfTheDay-API\\NASA-PictureOfTheDay-API.csproj",
         "projectName": "NASA-PictureOfTheDay-API",
-        "projectPath": "D:\\GitHub\\NASA-PictureOfTheDay-API\\NASA-PictureOfTheDay-API.csproj",
+        "projectPath": "C:\\Users\\Anssi\\Desktop\\NASA-PictureOfTheDay-API\\NASA-PictureOfTheDay-API.csproj",
         "packagesPath": "C:\\Users\\Anssi\\.nuget\\packages\\",
-        "outputPath": "D:\\GitHub\\NASA-PictureOfTheDay-API\\obj\\",
+        "outputPath": "C:\\Users\\Anssi\\Desktop\\NASA-PictureOfTheDay-API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
