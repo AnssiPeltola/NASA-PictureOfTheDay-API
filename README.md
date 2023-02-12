@@ -5,7 +5,3 @@ Ohjelmalla voidaan ladata NASAn päivän kuva tietokoneelle käyttäen NASAn APO
 Ohjelma kysyy käyttäjältään haluaako ladata tämän päivän, eilisen vai satunnaisen päivän kuvan.
 Ensin ohjelma lataa kuvan binaaridatan tietokoneelle .txt tiedostoon, josta se etsii kuvien URLeja.
 URLin perusteella ohjelma lataa kuvan tietokoneelle.
-
-Parannuksina pitää vielä tehdä muutamille kohdille try-catch lausunnot:
-Jos ei käyttäjällä ole internet yhteyttä
-Jos kuvan binaaridatassa ei ole kuva URLeja
