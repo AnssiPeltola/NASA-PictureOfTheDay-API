@@ -1,7 +1,3 @@
 # NASA-PictureOfTheDay-API
 
-Ohjelmalla voidaan ladata NASAn päivän kuva tietokoneelle käyttäen NASAn APOD (Astronomy picture of the day) open APIa.
-
-Ohjelma kysyy käyttäjältään haluaako ladata tämän päivän, eilisen vai satunnaisen päivän kuvan.
-Ensin ohjelma lataa kuvan binaaridatan tietokoneelle .txt tiedostoon, josta se etsii kuvien URLeja.
-URLin perusteella ohjelma lataa kuvan tietokoneelle.
+This project is a simple console application that allows you to download NASA's Picture of the Day using NASA's API. The application prompts the user to select the desired picture based on different options: today's picture, yesterday's picture, or a random picture from a specific date range.
