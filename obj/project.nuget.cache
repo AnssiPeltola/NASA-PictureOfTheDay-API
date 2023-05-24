@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PMEOAcPuCfT3ws/D6ZbeYcKVg+eEgAWrdyz2IcjstnSXd5WcBZW9QqG1mxyooo0hL+xiKA/X5Sn/Wrc5YK0ozQ==",
+  "dgSpecHash": "bH/stkhfUoXT134GMzAfGzzYqO1mmeYBujw1/b8PNDKhxj0cOyo0n++IuB9NNmgrPbPotaEpROKLaortvn/eig==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Anssi\\Desktop\\NASA-PictureOfTheDay-API\\NASA-PictureOfTheDay-API.csproj",
+  "projectFilePath": "F:\\GitHub\\NASA-PictureOfTheDay-API\\NASA-PictureOfTheDay-API.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
