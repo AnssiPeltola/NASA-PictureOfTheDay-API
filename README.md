@@ -44,6 +44,6 @@ Upon running the application, you'll be presented with the following options:
 - `1`: Today's picture
 - `2`: Yesterday's picture
 - `3`: Random day's picture
-- `4`: Exit
+- `0`: Exit
 
 Choose an option by typing the corresponding number and press Enter. If you choose to download an image, you'll be prompted to select the image quality: HD or Standard.
