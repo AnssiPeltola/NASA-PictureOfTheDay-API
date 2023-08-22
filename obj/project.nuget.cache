@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "bH/stkhfUoXT134GMzAfGzzYqO1mmeYBujw1/b8PNDKhxj0cOyo0n++IuB9NNmgrPbPotaEpROKLaortvn/eig==",
+  "dgSpecHash": "kNsdiyKQEu2be78dNoyp1O1IfpxaxgaOSaRTz7AwpoMGvJcqBe4XwN1Y6jyJEltgupfammxLBgtdOy8NTnlWng==",
   "success": true,
   "projectFilePath": "F:\\GitHub\\NASA-PictureOfTheDay-API\\NASA-PictureOfTheDay-API.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Anssi\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.21\\microsoft.netcore.app.ref.6.0.21.nupkg.sha512",
+    "C:\\Users\\Anssi\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.21\\microsoft.windowsdesktop.app.ref.6.0.21.nupkg.sha512",
+    "C:\\Users\\Anssi\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.21\\microsoft.aspnetcore.app.ref.6.0.21.nupkg.sha512",
+    "C:\\Users\\Anssi\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.21\\microsoft.netcore.app.host.win-x64.6.0.21.nupkg.sha512"
+  ],
   "logs": []
 }
